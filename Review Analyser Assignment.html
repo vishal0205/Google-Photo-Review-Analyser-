@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Review Analyser Assignment</title>
+<style>
+:root {
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --surface-2: #f0eee8;
+  --text: #1d1d1b;
+  --muted: #6b6a65;
+  --border: #e2dfd6;
+  --accent: #2f5bd3;
+  --accent-soft: #e6ecfb;
+  --good: #1f8a4c;
+  --good-soft: #e3f4ea;
+  --warn: #b26a00;
+  --warn-soft: #fbf0dc;
+  --bad: #c0392b;
+  --bad-soft: #fbe6e3;
+  --code-bg: #f3f1ec;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413; --surface: #1d1d1b; --surface-2: #262624; --text: #ecebe6; --muted: #9c9a92;
+    --border: #34332f; --accent: #7d9bf0; --accent-soft: #232b40; --good: #5cc98a; --good-soft: #1c2e23;
+    --warn: #e6a94a; --warn-soft: #33291a; --bad: #ef7d70; --bad-soft: #3a211e; --code-bg: #252522;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413; --surface: #1d1d1b; --surface-2: #262624; --text: #ecebe6; --muted: #9c9a92;
+  --border: #34332f; --accent: #7d9bf0; --accent-soft: #232b40; --good: #5cc98a; --good-soft: #1c2e23;
+  --warn: #e6a94a; --warn-soft: #33291a; --bad: #ef7d70; --bad-soft: #3a211e; --code-bg: #252522;
+  --shadow: none;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+code { background: var(--code-bg); padding: .1em .35em; border-radius: 4px; }
+pre { background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; line-height: 1.45; margin: 8px 0; }
+pre code { background: none; padding: 0; }
+
+/* top bar */
+.topbar {
+  position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+}
+.topbar-inner { max-width: 1060px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.brand { font-weight: 700; color: var(--text); white-space: nowrap; }
+.nav { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+.nav a { padding: 4px 10px; border-radius: 6px; color: var(--muted); font-size: 14px; }
+.nav a:hover { background: var(--surface-2); text-decoration: none; color: var(--text); }
+.nav a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; min-width: 0; max-width: 100%; }
+.tools select, .tools input { min-width: 0; max-width: 100%; }
+select, input[type=search], button {
+  font: inherit; font-size: 14px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px; padding: 5px 9px;
+}
+button { cursor: pointer; }
+button:hover { background: var(--surface-2); }
+
+main { max-width: 1060px; margin: 0 auto; padding: 24px 16px 80px; }
+h1 { font-size: 30px; line-height: 1.2; margin: 8px 0 6px; letter-spacing: -.01em; }
+h2 { font-size: 21px; margin: 36px 0 10px; letter-spacing: -.01em; }
+h3 { font-size: 17px; margin: 22px 0 8px; }
+.lede { color: var(--muted); font-size: 17px; margin: 0 0 20px; max-width: 760px; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.grid-2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.tile h3 { margin: 0 0 4px; }
+.tile p { margin: 0; color: var(--muted); font-size: 14px; }
+a.tile { display: block; color: inherit; }
+a.tile:hover { text-decoration: none; border-color: var(--accent); }
+.tile .count { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: block; }
+
+.pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 99px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+.pill.easy { background: var(--good-soft); color: var(--good); }
+.pill.medium { background: var(--warn-soft); color: var(--warn); }
+.pill.hard { background: var(--bad-soft); color: var(--bad); }
+.pill.pattern { background: var(--accent-soft); color: var(--accent); }
+
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+.callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+.callout.bad { border-color: var(--bad); background: var(--bad-soft); }
+.callout.good { border-color: var(--good); background: var(--good-soft); }
+.callout p { margin: 4px 0; }
+
+/* question list */
+.section-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.section-head h2 { margin-bottom: 4px; }
+.q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 10px 0; box-shadow: var(--shadow); }
+.q.asked { border-color: color-mix(in srgb, var(--good) 45%, var(--border)); }
+.q-head { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; cursor: pointer; }
+.q-num { flex: none; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 34px; }
+.q-title { flex: 1; font-weight: 600; }
+.q-title .pill { margin-left: 6px; vertical-align: 1px; }
+.q-body { display: none; padding: 0 14px 14px 60px; }
+.q.open .q-body { display: block; }
+.q-body .label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; color: var(--muted); margin: 10px 0 2px; }
+.q-body p { margin: 4px 0; }
+.chev { flex: none; color: var(--muted); transition: transform .15s; }
+.part-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin: 2px 0 6px; }
+.q-question { background: var(--surface-2); border-radius: 8px; padding: 10px 14px 12px; }
+.q-question > p:first-of-type { font-size: 16.5px; }
+.ans-toggle { margin: 12px 0 4px; font-weight: 600; color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.q-answer { display: none; margin-top: 10px; padding-top: 10px; border-top: 2px solid var(--border); }
+.q-answer.show { display: block; }
+.q-answer .part-title { color: var(--good); }
+.table-wrap.ex { margin: 6px 0; }
+.table-wrap.ex table { font-size: 14px; }
+.table-wrap.ex td, .table-wrap.ex th { padding: 6px 10px; }
+.table-wrap.ex code { background: none; padding: 0; }
+details.schema { margin-top: 8px; }
+details.schema summary { cursor: pointer; font-size: 14px; color: var(--muted); font-weight: 600; }
+.q.open .chev { transform: rotate(90deg); }
+
+.track { display: flex; gap: 6px; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap; }
+.track .who { font-size: 13px; color: var(--muted); margin-right: 4px; }
+.rate { font-size: 13px; padding: 2px 10px; }
+.rate.on[data-r="good"] { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.rate.on[data-r="partial"] { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+.rate.on[data-r="miss"] { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+
+/* tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--surface-2); }
+tr:last-child td { border-bottom: none; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.bar { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; min-width: 80px; margin-top: 4px; }
+.bar > span { display: block; height: 100%; background: var(--accent); }
+
+/* candidate cards */
+.cand { margin: 18px 0; }
+.cand-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.cand-head h2 { margin: 0; }
+.score-big { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kv { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; font-size: 15px; margin: 12px 0; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; }
+ul.tight { margin: 6px 0; padding-left: 20px; }
+ul.tight li { margin: 3px 0; }
+.toc { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 4px; }
+.toc a { font-size: 14px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 99px; background: var(--surface); color: var(--text); }
+.toc a:hover { border-color: var(--accent); text-decoration: none; }
+
+.flow { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+.flow li { position: relative; padding: 10px 0 10px 46px; border-bottom: 1px solid var(--border); }
+.flow li:last-child { border-bottom: none; }
+.flow li::before {
+  counter-increment: step; content: counter(step); position: absolute; left: 0; top: 10px;
+  width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  font-weight: 700; display: grid; place-items: center; font-size: 14px;
+}
+.flow .time { float: right; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+.hidden { display: none !important; }
+@media (max-width: 640px) {
+  h1 { font-size: 24px; }
+  .q-body { padding-left: 14px; }
+  .kv { grid-template-columns: 1fr; }
+  .kv dt { margin-top: 6px; }
+  .tools { width: 100%; }
+  .tools input[type=search] { flex: 1; }
+  .tools select { flex: 1 1 100%; }
+}
+@media print {
+  .topbar, .track, .tools { display: none; }
+  .q-body, .q-answer { display: block !important; }
+  .ans-toggle { display: none; }
+  .q { break-inside: avoid; box-shadow: none; }
+}
+
+main { max-width: 980px; }
+.hero { padding: 8px 0 4px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; margin: 14px 0 6px; }
+.toc a { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: var(--text); font-size: 14px; }
+.toc a:hover { border-color: var(--accent); }
+.toc a span { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+.step { margin: 14px 0; padding: 18px 20px; }
+.step-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.step-head h3 { margin: 0; font-size: 19px; flex: 1; min-width: 180px; }
+.step-n { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.qrow { display: flex; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border); }
+.qrow > div { flex: 1; min-width: 0; }
+.qn { flex: none; width: 34px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.qrow .table-wrap { margin-top: 8px; }
+.callout.write { margin-top: 10px; background: var(--accent-soft); border-color: transparent; }
+.step blockquote { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--border); color: var(--muted); font-size: 14px; }
+.step blockquote p { margin: 0; }
+table.examples { font-size: 13.5px; }
+table.examples td { vertical-align: top; }
+table.examples td:nth-child(3) { min-width: 260px; }
+table.examples .why { color: var(--muted); min-width: 180px; }
+.pill.s-happy, .pill.s-satisfied { background: var(--good-soft); color: var(--good); }
+.pill.s-neutral { background: var(--surface-2); color: var(--muted); }
+.pill.s-negative, .pill.s-frustrated { background: var(--warn-soft); color: var(--warn); }
+.pill.s-angry { background: var(--bad-soft); color: var(--bad); }
+.pill { margin-left: 0; white-space: nowrap; }
+.theme-btn { position: fixed; top: 14px; right: 16px; z-index: 5; }
+@media print { .theme-btn, .toc { display: none; } .step { break-inside: avoid; } }
+</style></head>
+<body><button class="theme-btn" id="theme" title="Toggle light or dark">◐</button>
+<main>
+<div class="hero"><div class="eyebrow">Take-home assignment · ML and AI</div>
+<h1>Review Analyser for Google Photos</h1></div>
+
+<h2>Context</h2><p>Google Photos gets thousands of Play Store reviews every week. The product manager wants to know what users are happy about and what they are complaining about, without reading every review.</p>
+<h2>Objective</h2><p>Build a <strong>review analyser</strong>. It reads each review, uses an LLM to work out its <strong>sentiment</strong>, <strong>category</strong> and <strong>topic</strong>, and shows the result in a <strong>dashboard</strong> that summarises all the reviews: how many are good, how many are bad, and what they are about.</p>
+<ul>
+<li><strong>Every review goes to the LLM</strong>, including one-word reviews. The work is in the prompt: you engineer it until the LLM gives the right labels.</li>
+<li>You may use a <strong>self-hosted LLM</strong> (for example Ollama with <code>llama3.1:8b</code>) or an <strong>LLM API</strong> (any free tier is enough).</li>
+<li>The code that calls the LLM must be in your submission.</li>
+<li>The dashboard can be a static HTML page or a dynamic app (Streamlit, Dash, Gradio). Your choice.</li>
+</ul>
+<h2>Data</h2><p><code>google_photos_reviews.csv</code>: 7,687 real public reviews of the Google Photos Android app.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>review_id</code></td>
+<td>Unique id of the review</td>
+</tr>
+<tr>
+<td><code>review_date</code></td>
+<td>When it was posted (UTC)</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>Stars, 1 to 5</td>
+</tr>
+<tr>
+<td><code>review_text</code></td>
+<td>What the user wrote, exactly as typed</td>
+</tr>
+<tr>
+<td><code>thumbs_up</code></td>
+<td>How many other users found the review helpful</td>
+</tr>
+<tr>
+<td><code>app_version</code></td>
+<td>App version the user had (can be empty)</td>
+</tr>
+<tr>
+<td><code>developer_replied</code></td>
+<td>1 if Google replied to the review</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="expected">Expected output</h2>
+<p>For every review, your analyser should produce three labels: sentiment, category and topic. These 17 real reviews from the dataset show what is expected, each with a one-line reason.
+The same rows are in <code>expected_output_examples.csv</code>, so you can test your prompt against them.</p>
+<div class="table-wrap"><table class="examples"><thead><tr><th>#</th><th>Rating</th><th>Review</th><th>Sentiment</th><th>Category</th><th>Topic</th><th>Why</th></tr></thead>
+<tbody><tr><td class="num">1</td><td class="num">5★</td><td>good</td><td><span class="pill s-satisfied">Satisfied</span></td><td><code>reflect_rating</code></td><td><code>Positive_Comment</code></td><td class="why">One word that only repeats the star rating.</td></tr><tr><td class="num">2</td><td class="num">5★</td><td>😊</td><td><span class="pill s-happy">Happy</span></td><td><code>reflect_rating</code></td><td><code>Positive_Comment</code></td><td class="why">Emoji only. Still gets a label.</td></tr><tr><td class="num">3</td><td class="num">5★</td><td>Hacked</td><td><span class="pill s-negative">Negative</span></td><td><code>opinion</code></td><td><code>Privacy_Security</code></td><td class="why">5 stars, but the text is a complaint. Label from the text, not the rating.</td></tr><tr><td class="num">4</td><td class="num">2★</td><td>Since i updated, this app has totally refused to backup my photos. What could be the problem??</td><td><span class="pill s-frustrated">Frustrated</span></td><td><code>bug</code></td><td><code>Backup_Sync</code></td><td class="why">Something stopped working after an update.</td></tr><tr><td class="num">5</td><td class="num">2★</td><td>Issues with edits not saving all of the changes. Edited images are also distorted in Google Photos but look normal when sending. It&#x27;s been a persistent bug recently.</td><td><span class="pill s-negative">Negative</span></td><td><code>bug</code></td><td><code>Editing</code></td><td class="why">Reports a defect and calls it a bug.</td></tr><tr><td class="num">6</td><td class="num">3★</td><td>it&#x27;s nice but it crashes again and again when i try to do simple photos to video</td><td><span class="pill s-negative">Negative</span></td><td><code>bug</code></td><td><code>App_Crash</code></td><td class="why">Starts with praise, but the main point is the crash.</td></tr><tr><td class="num">7</td><td class="num">1★</td><td>Absolutely hate the new layout. Get rid of the floating search</td><td><span class="pill s-angry">Angry</span></td><td><code>opinion</code></td><td><code>UI_Design</code></td><td class="why">Strong dislike of a design change. Nothing is broken.</td></tr><tr><td class="num">8</td><td class="num">1★</td><td>The latest update is horrible. Photos used to have the most amazing AI search. The search in this version is HORRIBLE. You keep becoming more like Apple and iPhone every day</td><td><span class="pill s-angry">Angry</span></td><td><code>opinion</code></td><td><code>Search</code></td><td class="why">Complaint about quality after an update, with strong language.</td></tr><tr><td class="num">9</td><td class="num">2★</td><td>Add an option to remove a backed up photo or video instead of making me delete it. Also why is that when I delete something and re-add it later it&#x27;s still backed up</td><td><span class="pill s-negative">Negative</span></td><td><code>feature_request</code></td><td><code>Backup_Sync</code></td><td class="why">Asks for an option that does not exist.</td></tr><tr><td class="num">10</td><td class="num">4★</td><td>I love this application but one thing that would be nice if they made the app compatible with smart TVS</td><td><span class="pill s-satisfied">Satisfied</span></td><td><code>feature_request</code></td><td><code>Device_Support</code></td><td class="why">Happy user who asks for one more thing.</td></tr><tr><td class="num">11</td><td class="num">4★</td><td>I still wish map search was available on the desktop as well as the app. other than that, I&#x27;m happy</td><td><span class="pill s-satisfied">Satisfied</span></td><td><code>feature_request</code></td><td><code>Search</code></td><td class="why">A wish, and otherwise happy.</td></tr><tr><td class="num">12</td><td class="num">5★</td><td>Easy and fast opening and finding my photos and adding titles. No glitches.</td><td><span class="pill s-happy">Happy</span></td><td><code>opinion</code></td><td><code>Performance</code></td><td class="why">Praise with a specific reason.</td></tr><tr><td class="num">13</td><td class="num">5★</td><td>The fact that this app has saved pictures and videos that I thought were lost years ago makes it priceless in my opinion. Thank you Google photos!!</td><td><span class="pill s-happy">Happy</span></td><td><code>opinion</code></td><td><code>Backup_Sync</code></td><td class="why">Contains the word &#x27;lost&#x27; but is positive. Read the meaning, not the keywords.</td></tr><tr><td class="num">14</td><td class="num">5★</td><td>this app is amazing we have the Google ai pro plan ans its like 10 bucks a month and it works for the whole family pluse the 5tb of storage</td><td><span class="pill s-happy">Happy</span></td><td><code>opinion</code></td><td><code>Storage_Plans</code></td><td class="why">Praise for the paid plan and storage.</td></tr><tr><td class="num">15</td><td class="num">3★</td><td>the memories feature always repeats the same videos and photos</td><td><span class="pill s-negative">Negative</span></td><td><code>opinion</code></td><td><code>Memories</code></td><td class="why">Mild complaint about one feature.</td></tr><tr><td class="num">16</td><td class="num">1★</td><td>foto saya hilang semua akibat saya delete backup ternyata hilang juga di android. mohon untuk diedit pemberitahuannya (warning) hapus backup hapus juga internal storage foto. sangat tidak direkomendasikan</td><td><span class="pill s-frustrated">Frustrated</span></td><td><code>opinion</code></td><td><code>Backup_Sync</code></td><td class="why">Not in English (Indonesian): photos were lost after deleting the backup. Label from the meaning.</td></tr><tr><td class="num">17</td><td class="num">3★</td><td>I will make a review after I finish the update.</td><td><span class="pill s-neutral">Neutral</span></td><td><code>opinion</code></td><td><code>Not_Applicable</code></td><td class="why">Says nothing about the app yet.</td></tr></tbody></table></div>
+<p class="muted small">The topic names here are only illustrations. You build your own topic list in Step 3.</p>
+
+<h2>How to work</h2><p>Use the starter notebook <code>Review_Analyser_Starter.ipynb</code>. It has one section per step below. Answer each question with code, then write your observation in a short text cell under it. The questions are clues that lead you to the final dashboard; you may add steps of your own.</p>
+<nav class="toc"><a href="#step1"><span>1</span>Understand the data</a><a href="#step2"><span>2</span>Prepare the data</a><a href="#step3"><span>3</span>Design your labels</a><a href="#step4"><span>4</span>Connect to the LLM and engineer the prompt</a><a href="#step5"><span>5</span>Label all the reviews</a><a href="#step6"><span>6</span>Check the quality</a><a href="#step7"><span>7</span>Summarise the results</a><a href="#step8"><span>8</span>Build the dashboard</a><a href="#step9"><span>9</span>Conclusions</a></nav>
+
+<h2>The steps</h2>
+<section class="step card" id="step1">
+<div class="step-head"><span class="step-n">Step 1</span><h3>Understand the data</h3><span class="pill pattern">10 marks</span></div>
+<div class="qrow"><span class="qn">1.1</span><div>How many reviews and columns are there? What date range do they cover?</div></div>
+<div class="qrow"><span class="qn">1.2</span><div>Plot the number of reviews for each star rating. What do you notice?</div></div>
+<div class="qrow"><span class="qn">1.3</span><div>How long are the reviews? Plot the number of words per review. How many have 3 words or fewer?</div></div>
+<div class="qrow"><span class="qn">1.4</span><div>Are there reviews with exactly the same text? How many, and which texts repeat most?</div></div>
+<div class="qrow"><span class="qn">1.5</span><div>Are all reviews in English? Find some that are not, or that are only emoji.</div></div>
+<div class="qrow"><span class="qn">1.6</span><div>Plot the number of reviews per month. Is the data spread evenly over time?</div></div>
+<div class="callout write"><strong>Write</strong> your 3 most important observations, and how each will affect your design.</div></section><section class="step card" id="step2">
+<div class="step-head"><span class="step-n">Step 2</span><h3>Prepare the data</h3><span class="pill pattern">5 marks</span></div>
+<div class="qrow"><span class="qn">2.1</span><div>Which reviews need cleaning before they go to the LLM, and what cleaning do you apply?</div></div>
+<div class="qrow"><span class="qn">2.2</span><div>Every review goes to the LLM, including "good" and "😊". Look at the examples file: what should the LLM answer for these?</div></div>
+<div class="qrow"><span class="qn">2.3</span><div>What will you do with non-English reviews, and with very long ones?</div></div></section><section class="step card" id="step3">
+<div class="step-head"><span class="step-n">Step 3</span><h3>Design your labels</h3><span class="pill pattern">10 marks</span></div>
+<div class="qrow"><span class="qn">3.1</span><div><strong>Sentiment.</strong> Use these six: <code>Happy</code>, <code>Satisfied</code>, <code>Neutral</code>, <code>Negative</code>, <code>Frustrated</code>, <code>Angry</code>. Write one line that defines each, so two people would label the same review the same way.</div></div>
+<div class="qrow"><span class="qn">3.2</span><div><strong>Category.</strong> Use these four. Find two reviews in the data for each, and one review where it is hard to choose between two categories.<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bug</code></td>
+<td>Something is broken or not working</td>
+</tr>
+<tr>
+<td><code>feature_request</code></td>
+<td>Asks for something new or for a change</td>
+</tr>
+<tr>
+<td><code>opinion</code></td>
+<td>A view about the app with some detail, but no bug and no request</td>
+</tr>
+<tr>
+<td><code>reflect_rating</code></td>
+<td>Says nothing beyond the star rating: "good", "nice app", "😊"</td>
+</tr>
+</tbody>
+</table></div></div></div>
+<div class="qrow"><span class="qn">3.3</span><div><strong>Topic.</strong> Read at least 50 reviews and build your own list of 8 to 15 topics (for example Backup, Storage, Editing). Show how you arrived at the list.</div></div>
+<div class="qrow"><span class="qn">3.4</span><div>What topic will you give a review that fits none, and a review that is general praise?</div></div></section><section class="step card" id="step4">
+<div class="step-head"><span class="step-n">Step 4</span><h3>Connect to the LLM and engineer the prompt</h3><span class="pill pattern">15 marks</span></div>
+<div class="qrow"><span class="qn">4.1</span><div>Set up your LLM (self-hosted or API) and send one test review. Print the raw response.</div></div>
+<div class="qrow"><span class="qn">4.2</span><div>Write the prompt that asks for sentiment, category and topic. How do you make the LLM answer only from your label lists, in a format your code can read?</div></div>
+<div class="qrow"><span class="qn">4.3</span><div>Run your prompt on the 17 reviews in <code>expected_output_examples.csv</code>. How many labels match? Look at the ones that do not.</div></div>
+<div class="qrow"><span class="qn">4.4</span><div>Add a few examples to the prompt itself (few-shot). Which examples did you choose, and did the results change?</div></div>
+<div class="qrow"><span class="qn">4.5</span><div>Show at least two versions of your prompt and what each change fixed.</div></div>
+<div class="qrow"><span class="qn">4.6</span><div>Which settings did you choose (model, temperature, output length) and why?</div></div></section><section class="step card" id="step5">
+<div class="step-head"><span class="step-n">Step 5</span><h3>Label all the reviews</h3><span class="pill pattern">15 marks</span></div>
+<div class="qrow"><span class="qn">5.1</span><div>Write a function that takes one review and returns its sentiment, category and topic.</div></div>
+<div class="qrow"><span class="qn">5.2</span><div>What does your code do when the LLM returns a label that is not in your list, returns nothing, or times out?</div></div>
+<div class="qrow"><span class="qn">5.3</span><div>Run it on all the reviews and save the result as <code>labelled_reviews.csv</code> (input columns plus <code>sentiment</code>, <code>category</code> and <code>topic</code>).</div></div>
+<div class="qrow"><span class="qn">5.4</span><div>How long did the run take? If you stop and restart it, does it start again from the first review?</div></div>
+<blockquote>
+<p>If your machine is too slow to label all 7,687, label at least 1,500 and say how you chose them.</p>
+</blockquote></section><section class="step card" id="step6">
+<div class="step-head"><span class="step-n">Step 6</span><h3>Check the quality</h3><span class="pill pattern">15 marks</span></div>
+<div class="qrow"><span class="qn">6.1</span><div>Pick 50 reviews and label them yourself, without looking at the LLM's answer. How did you pick the 50?</div></div>
+<div class="qrow"><span class="qn">6.2</span><div>Compare your labels with the LLM's. What is the accuracy for sentiment, for category and for topic?</div></div>
+<div class="qrow"><span class="qn">6.3</span><div>Show 5 reviews the LLM got wrong. Why do you think each went wrong?</div></div>
+<div class="qrow"><span class="qn">6.4</span><div>Make one change (to the prompt, the labels or the rules) to fix some of these. Show the accuracy before and after.</div></div></section><section class="step card" id="step7">
+<div class="step-head"><span class="step-n">Step 7</span><h3>Summarise the results</h3><span class="pill pattern">10 marks</span></div>
+<div class="qrow"><span class="qn">7.1</span><div>How many reviews are good, bad and neutral? Decide how the six sentiments map to these three groups.</div></div>
+<div class="qrow"><span class="qn">7.2</span><div>How many reviews are bugs, feature requests, opinions and reflect_rating? What share of all reviews says nothing beyond the rating?</div></div>
+<div class="qrow"><span class="qn">7.3</span><div>Which topics get the most complaints? Which get the most praise? Which have the most bugs?</div></div>
+<div class="qrow"><span class="qn">7.4</span><div>Find reviews where the star rating and the sentiment disagree (for example 5 stars but <code>Angry</code>). How many are there? Show a few.</div></div>
+<div class="qrow"><span class="qn">7.5</span><div>Has anything changed in recent weeks? Remember what you saw in question 1.6.</div></div></section><section class="step card" id="step8">
+<div class="step-head"><span class="step-n">Step 8</span><h3>Build the dashboard</h3><span class="pill pattern">15 marks</span></div>
+<p>Build the final dashboard from <code>labelled_reviews.csv</code>. It must show:</p>
+<ul>
+<li>Total reviews analysed, and the count and percentage of good, bad and neutral reviews.</li>
+<li>Sentiment breakdown (all six levels) and category breakdown (all four).</li>
+<li>Topics ranked by number of reviews, split by good and bad.</li>
+<li>Top 5 complaint topics, each with 2 or 3 example reviews.</li>
+<li>Reviews over time, by sentiment.</li>
+</ul>
+<p>Anything more is up to you: filters, search, a table of reviews, rating versus sentiment.</p></section><section class="step card" id="step9">
+<div class="step-head"><span class="step-n">Step 9</span><h3>Conclusions</h3><span class="pill pattern">5 marks</span></div>
+<div class="qrow"><span class="qn">9.1</span><div>If you were the product manager, which 3 problems would you fix first? Back each with numbers from your dashboard.</div></div>
+<div class="qrow"><span class="qn">9.2</span><div>What are the limits of your analyser? Where should the product manager not trust it?</div></div>
+<div class="qrow"><span class="qn">9.3</span><div>What would you do next with one more week?</div></div></section>
+
+<h2>Go further (optional)</h2><p>You are free to take the project beyond these steps. Think out of the box: anything that makes the analyser more useful, more accurate or cheaper to run counts. Show what you added and say why.</p>
+<h2>What to submit</h2><p>Share a <strong>GitHub repository</strong> link, or a zip of the files, with:</p>
+<ol>
+<li><strong>The Jupyter notebook</strong>, run from top to bottom with outputs visible, and your observations written under each question.</li>
+<li><strong>The code</strong> that calls the LLM (in the notebook or in <code>.py</code> files), with any prompt files.</li>
+<li><strong><code>labelled_reviews.csv</code></strong>, your 50 hand-labelled reviews, and your prompt versions.</li>
+<li><strong>The dashboard</strong>: the HTML file, or the app code with the command to start it.</li>
+<li><strong><code>README.md</code></strong>: how to run it, which LLM you used, and where you used AI tools.</li>
+</ol>
+<p>Do not commit API keys.</p>
+<h2>Rules</h2><ul>
+<li><strong>Time:</strong> about 8 to 10 hours of work. You have 5 days.</li>
+<li><strong>AI tools are allowed.</strong> You must be able to explain everything you submit: a 30-minute review call follows, where you walk through your notebook and make a small change live.</li>
+<li>No paid service is needed.</li>
+</ul>
+<h2>Marks</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Understand the data</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2. Prepare the data</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3. Design your labels</td>
+<td>10</td>
+</tr>
+<tr>
+<td>4. Connect to the LLM and engineer the prompt</td>
+<td>15</td>
+</tr>
+<tr>
+<td>5. Label all the reviews</td>
+<td>15</td>
+</tr>
+<tr>
+<td>6. Check the quality</td>
+<td>15</td>
+</tr>
+<tr>
+<td>7. Summarise the results</td>
+<td>10</td>
+</tr>
+<tr>
+<td>8. Build the dashboard</td>
+<td>15</td>
+</tr>
+<tr>
+<td>9. Conclusions</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>100</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Notebook presentation (clear headings, readable charts, observations in your own words) counts within each step. Going further can earn up to 10 bonus marks.</p>
+</main>
+<script>
+document.getElementById("theme").addEventListener("click", () => {
+  const r = document.documentElement;
+  const dark = r.dataset.theme === "dark" || (!r.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+  r.dataset.theme = dark ? "light" : "dark";
+});
+</script></body></html>

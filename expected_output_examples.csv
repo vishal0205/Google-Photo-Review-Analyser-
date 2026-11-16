@@ -1,0 +1,18 @@
+review_id,rating,review_text,sentiment,category,topic,why
+c34e0957-b5ff-4507-82c4-9fbfc25f8616,5,good,Satisfied,reflect_rating,Positive_Comment,One word that only repeats the star rating.
+76a16ee6-9b0a-4778-8d67-cde40c75abb0,5,😊,Happy,reflect_rating,Positive_Comment,Emoji only. Still gets a label.
+8626c709-e2de-49f0-94cd-2f87f631eb30,5,Hacked,Negative,opinion,Privacy_Security,"5 stars, but the text is a complaint. Label from the text, not the rating."
+be99a494-d2c1-42ea-bc1c-e40338ecfa5d,2,"Since i updated, this app has totally refused to backup my photos. What could be the problem??",Frustrated,bug,Backup_Sync,Something stopped working after an update.
+f7b3fae8-2c8f-4e6f-a569-1f11b1ee87ef,2,Issues with edits not saving all of the changes. Edited images are also distorted in Google Photos but look normal when sending. It's been a persistent bug recently.,Negative,bug,Editing,Reports a defect and calls it a bug.
+ec88e2d8-b84d-4ffc-9f5c-346de52cde11,3,it's nice but it crashes again and again when i try to do simple photos to video,Negative,bug,App_Crash,"Starts with praise, but the main point is the crash."
+723adb91-fa27-4deb-9fd8-a140326590eb,1,Absolutely hate the new layout. Get rid of the floating search,Angry,opinion,UI_Design,Strong dislike of a design change. Nothing is broken.
+c5a0669e-3256-4824-ad70-5e1e1324b8e3,1,The latest update is horrible. Photos used to have the most amazing AI search. The search in this version is HORRIBLE. You keep becoming more like Apple and iPhone every day,Angry,opinion,Search,"Complaint about quality after an update, with strong language."
+d1e72cbb-5863-482d-a33d-55de487134ba,2,Add an option to remove a backed up photo or video instead of making me delete it. Also why is that when I delete something and re-add it later it's still backed up,Negative,feature_request,Backup_Sync,Asks for an option that does not exist.
+d5bc499a-9efc-41ee-abd1-6bff83be216b,4,I love this application but one thing that would be nice if they made the app compatible with smart TVS,Satisfied,feature_request,Device_Support,Happy user who asks for one more thing.
+af0e9c19-5c6e-45cf-88a5-e00df719e4f2,4,"I still wish map search was available on the desktop as well as the app. other than that, I'm happy",Satisfied,feature_request,Search,"A wish, and otherwise happy."
+6555434b-d7a7-4035-b8d2-561290ae97f3,5,Easy and fast opening and finding my photos and adding titles. No glitches.,Happy,opinion,Performance,Praise with a specific reason.
+5fba86a4-6232-4a44-8f59-c329a9752407,5,The fact that this app has saved pictures and videos that I thought were lost years ago makes it priceless in my opinion. Thank you Google photos!!,Happy,opinion,Backup_Sync,"Contains the word 'lost' but is positive. Read the meaning, not the keywords."
+d56ecfa7-a588-42b1-8a68-f923a0aa813d,5,this app is amazing we have the Google ai pro plan ans its like 10 bucks a month and it works for the whole family pluse the 5tb of storage,Happy,opinion,Storage_Plans,Praise for the paid plan and storage.
+f57b332e-8344-4ee7-b412-1b9cb615e4d3,3,the memories feature always repeats the same videos and photos,Negative,opinion,Memories,Mild complaint about one feature.
+4992e248-c6e3-431f-b517-53a1e669d207,1,foto saya hilang semua akibat saya delete backup ternyata hilang juga di android. mohon untuk diedit pemberitahuannya (warning) hapus backup hapus juga internal storage foto. sangat tidak direkomendasikan,Frustrated,opinion,Backup_Sync,Not in English (Indonesian): photos were lost after deleting the backup. Label from the meaning.
+75723329-7b8e-412a-8c9f-8ca744ff47c1,3,I will make a review after I finish the update.,Neutral,opinion,Not_Applicable,Says nothing about the app yet.

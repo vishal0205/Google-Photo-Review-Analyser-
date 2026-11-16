@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Generated progress and output files
+labelled_reviews_progress.csv
+
+# OS files
+.DS_Store
+Thumbs.db
