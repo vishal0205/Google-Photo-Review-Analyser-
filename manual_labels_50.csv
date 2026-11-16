@@ -1,0 +1,51 @@
+review_id,review_text,manual_sentiment,manual_category,manual_topic
+5b3b4002-a6d4-4ebd-b501-8479091616ae,QA,Neutral,opinion,Not_Applicable
+0cb83a04-e9d6-4ed5-9a9d-e20174117225,opppp,Neutral,opinion,Not_Applicable
+1abafca8-e3cf-4c6b-a88d-816d50e0401c,good,Satisfied,reflect_rating,Positive_Comment
+50dc4ab9-e04d-49b6-9f95-a8e7c6604b9e,good gallery app,Satisfied,reflect_rating,Positive_Comment
+93c45199-3a04-4a41-b765-7c28dfc3f400,nice 👍,Satisfied,reflect_rating,Positive_Comment
+41557703-c5ad-4584-b746-a462b0784824,"poor photo layout. when it says ""photos"" it shows me photos that have been deleted from my camera roll until I click ""gallery"" hate it. 0 stars. if I delete something, it's cause I want it gone!",Angry,opinion,UI_Design
+39e66cf9-d43e-4f11-86f2-ea6a000fbb63,exllent,Happy,reflect_rating,Positive_Comment
+0965dfad-7e54-4124-bfc8-803d7e8024ed,Supper its good app,Happy,reflect_rating,Positive_Comment
+feab8eaa-e38d-4752-9347-c5226d105bca,"What is wrong with this app upon opening all of my stuff is juddering, shaking of the screen and it is only with this app!???",Frustrated,bug,Performance
+d6fc21a0-a259-4624-9750-8f6981f0f1df,good,Satisfied,reflect_rating,Positive_Comment
+b4061cc7-44b0-4d9b-986b-7e22570ff0c2,I love this,Happy,reflect_rating,Positive_Comment
+9f338784-1e4a-4336-8b87-efd55b8eacc1,I am not take care about the another I just not having the same I am having the another email so I can't change it on the shouting at that can you please change it,Frustrated,opinion,Not_Applicable
+eb4dc758-3739-4220-80fe-dc19dd177656,terrible,Angry,reflect_rating,Not_Applicable
+1bc07b8e-3c18-405e-b93c-12919754ef4b,good,Satisfied,reflect_rating,Positive_Comment
+27f3f07d-7da4-481b-825b-fb3b3aa76d86,easier to save ur documents,Satisfied,opinion,Backup_Sync
+6ccfa50f-f940-41b0-ae05-7fb37d85236c,new update forces you to add an additional backup. totally ridiculous to force that option. I can not even crop a photo. 1 Star until this is fixed.,Angry,bug,Editing
+1c4fb6d1-0e9c-4c71-ae84-b6788b7543e6,"I feel safe taking pictues,pictures, they are safe.thank you",Happy,opinion,Privacy_Security
+f9fb26b8-db29-4f6c-8f52-5e807b1e15a7,id rather save my stuff to a micro SD card so i can access it without internet at anytime..but for a cloud thing theres a few things you cant do like you would be able to do on a micro. i dont like the fact that you cant make and put pictures in folders after arkiving. that really sucks. and the buy prints well the quality was really bad. and my camera is 13 mp...the prints was blurry and original was a quality pict. i can print my own way cheaper. and clearer. and its really hard to find photos,Negative,opinion,Search
+b9b72cfa-2162-4c77-b105-0667dda78927,nice app 👍,Satisfied,reflect_rating,Positive_Comment
+f9f15590-3a6d-4274-a3f5-b3b25e77670f,excellent,Happy,reflect_rating,Positive_Comment
+3d637f67-2d6f-43bb-a90f-af36c95fcbf4,super,Happy,reflect_rating,Positive_Comment
+d9dd62d6-b70f-45f1-8881-8439f4f766ad,perfect thanks,Happy,reflect_rating,Positive_Comment
+a232f73a-0686-4e1f-8095-b88ac03ba535,Automatically backs up your media but no option to download them!! Is they become property of the developerGood for accessing it anywhere,Neutral,feature_request,Backup_Sync
+0aea7b64-260f-439f-9ad9-f5e333e84ac6,photobooks when u save cant open ...was fine before but the update now doesn't let you go back in...,Frustrated,bug,Editing
+8b16e8cf-e632-4589-b426-ac0b52742e5c,I like it good job.,Satisfied,reflect_rating,Positive_Comment
+228c61ff-042e-4f53-8ac0-26b048952e95,"I legitimatly hate this app so much. Google cannot stop changing ui things, your photos are uploaded to google servers automatically by default, and if you ask them to stop backing up your photos they delete all your albums. Love this company has a stranglehold on our world and electronics, it isn't constantly frustrating.",Angry,opinion,Backup_Sync
+783d1e27-5a82-4115-a271-3a40bab241c4,I cannot turn off the background music during the memories feature. Plays over the sound in videos as well. This needs to be disabled. Also will not keep all of my pictures in one folder. Auto sets them to different places. I have to search around to find what I am looking for.,Frustrated,feature_request,Memories
+b0004d7d-5740-4be2-a7e4-7ace131e60fd,",c",Neutral,opinion,Not_Applicable
+b9e441f0-08ec-436e-9105-953dd8f567db,Stop this stealing app which takes all photos from the phone gallery without any permission and then google sent email for memory is full and purchase memory from google. due to this app all android phones look like scam.,Angry,opinion,Privacy_Security
+a28e051a-50f7-445f-889e-a0766af13e99,👍😃 great,Happy,reflect_rating,Positive_Comment
+608a59cf-467f-4d39-a5e6-f01532652929,good,Satisfied,reflect_rating,Positive_Comment
+5fcea980-0ff4-486f-a477-4ca37596ef5a,"start what you want , then , go make a sandwich 🥪 , maybe it'll work , by the time you get back 🔙 and the email to contact them is "" not being monitored """,Frustrated,opinion,Performance
+31f997f3-ccd4-4b1a-b12c-e862e5e43344,I'm still working on it and get it back after accidentally uninstalling ... Whew I'm starting to finally get a grip on understanding this new style of communications,Neutral,opinion,Not_Applicable
+ba412b6c-c704-4d2c-965a-4bc89f4e567a,good 👍,Satisfied,reflect_rating,Positive_Comment
+b475b933-34ad-45ba-8431-40782c55d192,opiotreva,Neutral,opinion,Not_Applicable
+1184bdef-9c98-40c1-8ecd-672ec74084cb,"Photos cannot be edited and saved from this app. The app deletes them on its own. This is something that is seen before and after the update, which has been happening for several weeks now.",Frustrated,bug,Editing
+014ecaf6-bced-4415-bfeb-881cedc08656,it's awesome,Happy,reflect_rating,Positive_Comment
+c5c991d8-01ac-4553-873f-7962b3d2d109,Fantasty,Happy,reflect_rating,Positive_Comment
+767216f3-9a75-427f-b616-7e6e728f492e,"Every update to Google photos reeks of feature creep. New add ons like a mandatory pop up to fix lighting on every picture, or automatic adjustments that often make low light pictures look worse come to mind. As does folder sorting among others. Can't say I'm a fan of the app. Or that I would use it if it wasn't impossible to remove.",Negative,opinion,Editing
+38982268-9fe3-48be-ac4a-28df04917953,good aapaa,Satisfied,reflect_rating,Positive_Comment
+6067c145-0db7-49a6-9f84-b7cef632319b,trouble moving to locked folder bug in the latest update. please fix this,Negative,bug,Privacy_Security
+e868cc00-f053-4a08-befa-d2635ecba2d8,"Excellent, but storage becomes full if you indulge it",Satisfied,opinion,Storage_Plans
+40fecc63-7550-4407-9a86-b87f168eb034,"junk, not extremely technical but still more junk to read through, try to understand poorly written information for an unnecessary app that is seemingly a downgrade.",Negative,opinion,Not_Applicable
+9430b407-3b99-45e1-a113-b3f7dd59d2ac,All that Google does is regurgitate Herzlite propaganda. Each and every Herzlite has always been indistinguishable from each and every other Nazi. .... .,Angry,opinion,Not_Applicable
+e847fdb8-d214-4394-aa33-756ea7925633,good,Satisfied,reflect_rating,Positive_Comment
+c96233e7-4240-4501-9336-422bef4d70b9,I don't no how to recover my photos on my phone I lost,Frustrated,opinion,Backup_Sync
+836c7c4d-558b-4e59-b595-9fdce7f0ee5f,November 2026 improvement in Google photos app may be helpful to the users yet Google must try to offer more separate storage for photos. It is suggested that google keep photos storage separate from free 15gb or extend free storage upto 30gb for general purposes.,Satisfied,feature_request,Storage_Plans
+87947b36-2ee3-4f7b-82c2-d64b800e4537,Excellent app one think I need to tell that is Add a separate folder in which we can see all the backup photos (the tick mark is not enough) So I can delete from gallery so that I would know it has added or not,Satisfied,feature_request,Backup_Sync
+62ef9899-7f5f-47ed-95c6-102f4de623f7,"Bestest app of google. I appreciate your team . You're doing very well, editing college, making photo cinematic and making animation by this app is truly awesome. But Storage problem is something which is not good, atleast you should provide 50gb to normal users to keep their photos and videos with backup. Only 15gb is devastating and challenging",Satisfied,feature_request,Storage_Plans
+a008137e-6a52-42dd-9ea0-eb99f69f9782,"Great for backing things up, but needs to stop shoving generative AI into my face in every corner of the app. I do NOT want to make a cartoon from my photos, I do NOT want to pick out outfits from my photos, I do NOT want to chat with my photos. Google needs to go back to focusing on nailing the basics.",Frustrated,feature_request,AI_Features
