@@ -159,6 +159,39 @@ The application will open in your browser.
 
 **Note:** The Gemini API key is required for chatbot functionality. The LLM classification experiments in the notebook use Ollama and Llama 3.2 (3B), which must be installed separately to reproduce those experiments.
 
+## Running the Jupyter Notebook
+
+### 1. Open the project in VS Code
+
+Open the project folder in VS Code and open `Review_Analyser_Starter.ipynb`.
+
+### 2. Activate the virtual environment
+
+Open the VS Code terminal and run:
+
+```powershell
+.venv\Scripts\activate
+```
+
+### 3. Install Jupyter kernel support
+
+```powershell
+pip install ipykernel jupyter
+```
+
+### 4. Connect the kernel
+
+1. Open the notebook.
+2. Click **Select Kernel** in the top-right corner.
+3. Choose **Python Environments**.
+4. Select the Python interpreter from the project's `.venv` virtual environment.
+
+### 5. Run the notebook
+
+Select **Run All** to execute the notebook cells from top to bottom.
+
+Make sure the required dependencies and Ollama with the Llama 3.2 (3B) model are installed before running the classification experiments.
+
 ## AI Tool Usage and Acknowledgement
 
 AI tools were used as development assistance during different stages of the project.
