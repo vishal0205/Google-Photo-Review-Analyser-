@@ -1,4 +1,5 @@
 streamlit
 plotly
 pandas
-google-genaipython-dotenv
+google-genai
+python-dotenv
